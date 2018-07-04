@@ -5,20 +5,28 @@ using UnityEngine;
 //Andrew Bangs, Script for salt and pepper shakers
 public class Shaker_Script : MonoBehaviour {
 
-	public GameObject Player;
+	private PlayerScript playerStats;
 	
 	[Tooltip("Value of 1 = Salt, 2 = Pepper")]
 	public int ShakerType;
 	
-	void Awake(){
-		Player playerStats = GetComponent.PlayerScript;
+	void Start(){
+		playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
 	}
 	
 	void OnTriggerEnter (Collider other){
-		if (ShakerType = 1 && other.gameObject.CompareTag = "Player"){
+		if (ShakerType == 1 && other.gameObject.CompareTag ("Player")){
 			playerStats.speed = playerStats.speed / 2;
-		} else if (ShakerType = 2 && other.gameObject.CompareTag = "Player"){
+		} else if (ShakerType == 2 && other.gameObject.CompareTag ("Player")){
 			playerStats.dmgMult = playerStats.dmgMult * 2;
+		}
+	}
+	
+		void OnTriggerExit (Collider other){
+		if (ShakerType == 1 && other.gameObject.CompareTag ("Player")){
+			playerStats.speed = playerStats.speed * 2;
+		} else if (ShakerType == 2 && other.gameObject.CompareTag ("Player")){
+			playerStats.dmgMult = playerStats.dmgMult / 2;
 		}
 	}
 }

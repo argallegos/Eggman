@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour {
 
     }
 
-    [SerializeField] float speed;
+    public float speed, dmgMult;
     [SerializeField] MouseInput MouseControl;
 
     InputController playerInput;
