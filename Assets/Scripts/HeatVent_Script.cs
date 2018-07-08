@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Andrew Bangs, Script for Heat vent hazard
-public class HeatVent_Code : MonoBehaviour {
+public class HeatVent_Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
