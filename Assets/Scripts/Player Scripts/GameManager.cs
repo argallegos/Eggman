@@ -42,6 +42,7 @@ protected static GameManager _instance = null;
 		if (!PlayerBurning){
 			StartCoroutine(BurnDamage(Ticks, DmgAmount));
 			PlayerBurning = true;
+			Debug.Log("Burninat Begin");
 		}
 	}
 	
@@ -49,6 +50,7 @@ protected static GameManager _instance = null;
 		for(int i=0; i < Ticks; i++){
 			ReduceHealth(DmgAmount);
 			yield return new WaitForSeconds(0.3f);
+			Debug.Log("Burninated");
 		}
     }
 	
