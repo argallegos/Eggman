@@ -18,6 +18,11 @@ public class PlayerScript : MonoBehaviour {
     [SerializeField] MouseInput MouseControl;
 
     InputController playerInput;
+    Vector2 mouseInput;
+
+    public Vector2 direction;
+    public float pInputVertical;
+    public float pInputHorizontal;
 
     private MoveController m_MoveController;
     public MoveController MoveController
@@ -32,14 +37,20 @@ public class PlayerScript : MonoBehaviour {
 
     void Awake () {
         playerInput = GameManager.Instance.InputController;
-
+        GameManager.Instance.LocalPlayer = this;
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Vector2 direction = new Vector2(playerInput.Vertical * speed, playerInput.Horizontal * speed);
+        pInputVertical = playerInput.Vertical;
+        pInputHorizontal = playerInput.Horizontal;
+        direction = new Vector2(pInputVertical * speed, pInputHorizontal * speed);
         MoveController.Move(direction);
-		
+
+        mouseInput.x = Mathf.Lerp(mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
+
+        transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
+
 	}
 }

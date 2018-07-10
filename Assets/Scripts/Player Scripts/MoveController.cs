@@ -9,3 +9,4 @@ public class MoveController : MonoBehaviour {
         transform.position += transform.forward * direction.x * Time.deltaTime + transform.right * direction.y * Time.deltaTime;
     }
 }
+ 
