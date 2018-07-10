@@ -4,13 +4,12 @@ using UnityEngine;
 //Andrew Bangs Heat Vent script
 public class HeatVent_Script : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+	public int dmgAmount;
+	public int tickAmount;
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void OnTriggerEnter (Collider other){
+		if (other.gameObject.CompareTag("Player")){
+			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount);
+		}
 	}
 }
