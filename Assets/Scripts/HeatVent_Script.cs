@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeatVent_Code : MonoBehaviour {
+public class HeatVent_Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
