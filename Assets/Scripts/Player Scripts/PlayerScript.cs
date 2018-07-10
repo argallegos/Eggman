@@ -24,8 +24,11 @@ public class PlayerScript : MonoBehaviour {
     public float pInputVertical;
     public float pInputHorizontal;
 
+    public InputController inputController;
+
     private MoveController m_MoveController;
     public MoveController MoveController
+
     {
         get
         {
@@ -36,16 +39,16 @@ public class PlayerScript : MonoBehaviour {
     }
 
     void Awake () {
-        playerInput = GameManager.Instance.InputController;
-        GameManager.Instance.LocalPlayer = this;
-		
-	}
+        playerInput = PlayerManager.Instance.InputController;
+        PlayerManager.Instance.LocalPlayer = this;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        pInputVertical = playerInput.Vertical;
-        pInputHorizontal = playerInput.Horizontal;
-        direction = new Vector2(pInputVertical * speed, pInputHorizontal * speed);
+       // pInputVertical = playerInput.Vertical;
+        //pInputHorizontal = playerInput.Horizontal;
+        Vector2 direction = new Vector2(playerInput.Vertical * speed, playerInput.Horizontal * speed);
         MoveController.Move(direction);
 
         mouseInput.x = Mathf.Lerp(mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);

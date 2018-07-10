@@ -9,7 +9,7 @@ public class ThirdPersonCamera : MonoBehaviour {
     PlayerScript localPlayer;
 
 	void Awake () {
-        GameManager.Instance.OnLocalPlayerJoined += HandleOnLocalPlayerJoined; ;
+        PlayerManager.Instance.OnLocalPlayerJoined += HandleOnLocalPlayerJoined; ;
 		
 	}
 
@@ -23,9 +23,7 @@ public class ThirdPersonCamera : MonoBehaviour {
     }
 	
 	void Update () {
-        Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * cameraOffset.z +
-            localPlayer.transform.up * cameraOffset.y +
-            localPlayer.transform.right * cameraOffset.x;
+        Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * cameraOffset.z + localPlayer.transform.up * cameraOffset.y + localPlayer.transform.right * cameraOffset.x;
 
         Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
 
