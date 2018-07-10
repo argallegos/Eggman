@@ -15,6 +15,11 @@ public class PlayerScript : MonoBehaviour {
     }
 
     public float speed, dmgMult;
+    public GameObject eggForm;
+    public GameObject legForm;
+    public Vector3 eggPos;
+    
+
     [SerializeField] MouseInput MouseControl;
 
     InputController playerInput;
@@ -24,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
     public float pInputVertical;
     public float pInputHorizontal;
 
-    public InputController inputController;
+   // public InputController inputController;
 
     private MoveController m_MoveController;
     public MoveController MoveController
@@ -44,7 +49,6 @@ public class PlayerScript : MonoBehaviour {
 
     }
 	
-	// Update is called once per frame
 	void Update () {
        // pInputVertical = playerInput.Vertical;
         //pInputHorizontal = playerInput.Horizontal;
@@ -54,6 +58,22 @@ public class PlayerScript : MonoBehaviour {
         mouseInput.x = Mathf.Lerp(mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
 
         transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
+
+        eggPos = legForm.transform.position;
+
+        if (playerInput.eggMode == true)
+        {
+            eggForm.SetActive(true);
+            legForm.SetActive(false);
+            
+
+        }
+        else
+        {
+            eggForm.SetActive(false);
+            legForm.SetActive(true);
+            eggForm.transform.position = new Vector3(eggPos.x, 0f, eggPos.z);
+        }
 
 	}
 }
