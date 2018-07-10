@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+//Alex Gallegos third person camera script
 public class ThirdPersonCamera : MonoBehaviour {
 
     [SerializeField] Vector3 cameraOffset;

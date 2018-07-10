@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+//Alex Gallegos and Andrew Bangs (In seperate region) Game manager script
 public class GameManager : MonoBehaviour {
 
     public event System.Action<PlayerScript> OnLocalPlayerJoined;

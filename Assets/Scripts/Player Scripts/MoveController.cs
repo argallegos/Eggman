@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Alex Gallegos player move script
 public class MoveController : MonoBehaviour {
 
 	public void Move(Vector2 direction)

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Alex Gallegos main player script
 [RequireComponent(typeof(MoveController))]
 
 public class PlayerScript : MonoBehaviour {
