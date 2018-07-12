@@ -7,13 +7,18 @@ public class InputController : MonoBehaviour {
     public float Vertical;
     public float Horizontal;
     public Vector2 MouseInput;
-    public bool eggMode;
+    //public bool eggMode;
+    public bool shift;
 
-	void Update () {
+    void Update()
+    {
         Vertical = Input.GetAxis("Vertical");
         Horizontal = Input.GetAxis("Horizontal");
         MouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        shift = Input.GetKeyUp(KeyCode.LeftShift);
 
+    }
+        /*
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             EggModeTime();
@@ -21,9 +26,11 @@ public class InputController : MonoBehaviour {
         }
 
 	}
-    void EggModeTime ()
+    void EggModeTime()
     {
         if (eggMode == true) { eggMode = false; }
         else if (eggMode == false) { eggMode = true; }
     }
-}
+    */
+
+    }

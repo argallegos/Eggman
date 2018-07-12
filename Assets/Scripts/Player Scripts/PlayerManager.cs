@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//Alex Gallegos and Andrew Bangs (In seperate region) Game manager script
+//Alex Gallegos 
 public class PlayerManager {
   
     public event System.Action<PlayerScript> OnLocalPlayerJoined;
