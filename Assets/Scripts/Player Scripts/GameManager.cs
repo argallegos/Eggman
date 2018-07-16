@@ -39,18 +39,21 @@ protected static GameManager _instance = null;
 	}
 	
 	public void BurnPlayer (int Ticks, int DmgAmount){
-		if (!PlayerBurning){
-			StartCoroutine(BurnDamage(Ticks, DmgAmount));
+		if(!PlayerBurning){
+			StartCoroutine(BurnDamage(Ticks, DmgAmount, 0.3f));
 			PlayerBurning = true;
 			Debug.Log("Burninat Begin");
 		}
 	}
 	
-	IEnumerator BurnDamage(int Ticks, int DmgAmount) {
+	IEnumerator BurnDamage(int Ticks, int DmgAmount, float Delay) {
 		for(int i=0; i < Ticks; i++){
+			if (i == Ticks - 1){
+				PlayerBurning = false;
+			}
 			ReduceHealth(DmgAmount);
-			yield return new WaitForSeconds(0.3f);
-			Debug.Log("Burninated");
+			yield return new WaitForSeconds(Delay);
+			//Debug.Log("Burninated");
 		}
     }
 	
