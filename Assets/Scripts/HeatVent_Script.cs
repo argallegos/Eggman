@@ -7,10 +7,17 @@ public class HeatVent_Script : MonoBehaviour {
 	public int dmgAmount;
 	public int tickAmount;
 	
-	void OnTriggerEnter (Collider other){
-		//if (other.gameObject.CompareTag("Player")){
+	void OnTriggerExit (Collider other){
+		if (other.gameObject.CompareTag("Player")){
 			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount);
 			Debug.Log("Trigger Burnination");
-		//}
+		}
+	}
+	
+	void OnTriggerEnter (Collider other){
+		if (other.gameObject.CompareTag("Player")){
+			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount);
+			Debug.Log("Trigger Burnination");
+		}
 	}
 }
