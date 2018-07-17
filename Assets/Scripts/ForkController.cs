@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Maura Kurp enemy follow script
 public class ForkController : MonoBehaviour {
 
     private PlayerScript player;
