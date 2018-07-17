@@ -25,7 +25,6 @@ public class PlayerScript : MonoBehaviour {
     [HideInInspector]
     public float pInputVertical, pInputHorizontal;
 
-    Collider legCol;
     Rigidbody legRB;
 
     [SerializeField] MouseInput MouseControl;
@@ -48,10 +47,12 @@ public class PlayerScript : MonoBehaviour {
     void Awake () {
         playerInput = PlayerManager.Instance.InputController;
         PlayerManager.Instance.LocalPlayer = this;
-        legCol = GetComponent<Collider>();
         legRB = GetComponent<Rigidbody>();
-        eggForm.SetActive(false);
         eggMode = false;
+        eggForm.SetActive(false);
+        legForm.SetActive(true);
+        legRB.detectCollisions = true;
+        legRB.isKinematic = false;
 
     }
 	
@@ -78,14 +79,18 @@ public class PlayerScript : MonoBehaviour {
             EggModeTime();
 
         }
-        if (playerInput.jump) Jump();
+        if (playerInput.jump && OnGround())
+        {
+            Jump();
+        }
+            
 
 	}
 
     void Jump()
     {
-        legRB.AddForce(0f, jumpForce, 0f);
-    }
+        legRB.AddForce(Vector3.up * jumpForce);
+    } 
 
     void EggModeTime()
     {
@@ -93,7 +98,6 @@ public class PlayerScript : MonoBehaviour {
             eggMode = false;
             eggForm.SetActive(false);
             legForm.SetActive(true);
-            legCol.enabled = true;
             legRB.detectCollisions = true;
             legRB.isKinematic = false;
         }
@@ -102,14 +106,18 @@ public class PlayerScript : MonoBehaviour {
             eggMode = true;
             eggForm.SetActive(true);
             legForm.SetActive(false);
-            //legCol.enabled = false;
             legRB.detectCollisions = false;
             legRB.isKinematic = true;
             
             eggForm.transform.position = new Vector3 (transform.position.x, transform.position.y +1f, transform.position.z);
-            eggForm.transform.rotation = /*new Quaternion(0, 0, -90, 1);*/Quaternion.identity;
+            eggForm.transform.rotation = Quaternion.identity;
 
         }
+    }
+
+    private bool OnGround()
+    {
+        return Physics.Raycast(transform.position + new Vector3(0, .1f, 0), Vector3.down, .4f);
     }
 
 }

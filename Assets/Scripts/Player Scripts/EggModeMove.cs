@@ -20,7 +20,6 @@ public class EggModeMove : MonoBehaviour {
 
         myRB.AddForce(pScript.pInputHorizontal, 0f, pScript.pInputVertical * force);
         transform.Rotate(pScript.mouseRotate);
-        print(pScript.mouseRotate);
 
     }
 
