@@ -24,7 +24,8 @@ protected static GameManager _instance = null;
     }
 	
 	public int PlayerHP;
-	public bool PlayerBurning;
+	public int DmgMultiplier;
+	private bool PlayerBurning;
 	
 	void Awake () {		
 		DontDestroyOnLoad(this.gameObject);
@@ -49,9 +50,17 @@ protected static GameManager _instance = null;
 		}
 	}
 	
+	public void ChangeDMGMult(float Delay, bool Exiting){
+		if (!Exiting){
+			DmgMultiplier = 2;
+		} else if (Exiting){
+			StartCoroutine(ResetDmgMult(Delay));
+		}
+	}
+	
 	IEnumerator BurnDamage(int Ticks, int DmgAmount) {
 		for(int i=0; i < Ticks; i++){
-			ReduceHealth(DmgAmount);
+			ReduceHealth(DmgAmount * DmgMultiplier);
 			yield return new WaitForSeconds(0.3f);
 			if(PlayerBurning){
 				Ticks += 1;
@@ -60,6 +69,11 @@ protected static GameManager _instance = null;
 			Debug.Log("Burninated");
 		}
     }
+	
+	IEnumerator ResetDmgMult(float Delay){
+		yield return new WaitForSeconds(Delay);
+		DmgMultiplier = 1;
+	}
 	
 	IEnumerator RestartLevel(float delay) {
 		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
