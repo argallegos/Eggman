@@ -9,6 +9,7 @@ public class Shaker_Script : MonoBehaviour {
 	
 	[Tooltip("Value of 1 = Salt, 2 = Pepper")]
 	public int ShakerType;
+	public float ResetDelay;
 	
 	void Start(){
 		playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
@@ -18,15 +19,20 @@ public class Shaker_Script : MonoBehaviour {
 		if (ShakerType == 1 && other.gameObject.CompareTag ("Player")){
 			playerStats.speed = playerStats.speed / 2;
 		} else if (ShakerType == 2 && other.gameObject.CompareTag ("Player")){
-			playerStats.dmgMult = playerStats.dmgMult * 2;
+			GameManager.Instance.ChangeDMGMult(ResetDelay, false);
 		}
 	}
 	
 		void OnTriggerExit (Collider other){
 		if (ShakerType == 1 && other.gameObject.CompareTag ("Player")){
-			playerStats.speed = playerStats.speed * 2;
+			StartCoroutine(ResetSpeed(ResetDelay));
 		} else if (ShakerType == 2 && other.gameObject.CompareTag ("Player")){
-			playerStats.dmgMult = playerStats.dmgMult / 2;
+			GameManager.Instance.ChangeDMGMult(ResetDelay, true);
 		}
+	}
+	
+	IEnumerator ResetSpeed(float Delay){
+		yield return new WaitForSeconds(Delay);
+		playerStats.speed = playerStats.speed * 2;
 	}
 }

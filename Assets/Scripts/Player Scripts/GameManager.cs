@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//Andrew Bangs Game manager script
+//Andrew Bangs Game manager script, Game manager controls UI, scenes, and player status
 public class GameManager : MonoBehaviour {
 
 protected static GameManager _instance = null;
@@ -24,12 +24,25 @@ protected static GameManager _instance = null;
     }
 	
 	public int PlayerHP;
-	public bool PlayerBurning;
+	public int DmgMultiplier;
+	private bool PlayerBurning;
+	public GameObject PauseMenu;
 	
 	void Awake () {		
-		DontDestroyOnLoad(this.gameObject);
+		//DontDestroyOnLoad(this.gameObject);
 	}
 	
+	void Start (){
+		PauseMenu = GameObject.FindGameObjectWithTag("Pause_Menu");
+	}
+	
+	void Update () {
+		if (Input.GetKeyDown(KeyCode.P)){
+			PauseGame();
+		}
+	}
+	
+#region Player damage and status functions
 	public void ReduceHealth (int Amount){
 		PlayerHP -= Amount;
 		
@@ -49,9 +62,17 @@ protected static GameManager _instance = null;
 		}
 	}
 	
+	public void ChangeDMGMult(float Delay, bool Exiting){
+		if (!Exiting){
+			DmgMultiplier = 2;
+		} else if (Exiting){
+			StartCoroutine(ResetDmgMult(Delay));
+		}
+	}
+	
 	IEnumerator BurnDamage(int Ticks, int DmgAmount) {
 		for(int i=0; i < Ticks; i++){
-			ReduceHealth(DmgAmount);
+			ReduceHealth(DmgAmount * DmgMultiplier);
 			yield return new WaitForSeconds(0.3f);
 			if(PlayerBurning){
 				Ticks += 1;
@@ -61,10 +82,43 @@ protected static GameManager _instance = null;
 		}
     }
 	
+	IEnumerator ResetDmgMult(float Delay){
+		yield return new WaitForSeconds(Delay);
+		DmgMultiplier = 1;
+	}
+#endregion
+	
+#region UI and Scene Management
+	public void StartGame(){
+		SceneManager.LoadScene("Level_1");
+	}
+	
+	public void ExitGame(){
+		Application.Quit();
+		Debug.Log("Quit Game");
+	}
+	
+	public void PauseGame(){
+		Debug.Log("Time Frozen");
+		PauseMenu.SetActive (true);
+		Time.timeScale = 0.0f;
+	}
+	
+	public void GoToMain(){
+		SceneManager.LoadScene("_Main_Menu");
+	}
+	
+	public void ResumeGame(){
+		Time.timeScale = 1.0f;
+		Debug.Log("Time Continued");
+		PauseMenu.SetActive (false);
+	}
+	
 	IEnumerator RestartLevel(float delay) {
 		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
 		yield return new WaitForSeconds(delay);
 		// Reload the active scene:
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+#endregion
 }

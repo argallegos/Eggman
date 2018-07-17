@@ -52,3 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHP: 100
+  DmgMultiplier: 1
+  PauseMenu: {fileID: 0}
