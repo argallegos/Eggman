@@ -24,7 +24,7 @@ protected static GameManager _instance = null;
     }
 	
 	public int PlayerHP;
-	private bool PlayerBurning;
+	public bool PlayerBurning;
 	
 	void Awake () {		
 		DontDestroyOnLoad(this.gameObject);
@@ -38,11 +38,14 @@ protected static GameManager _instance = null;
 		}
 	}
 	
-	public void BurnPlayer (int Ticks, int DmgAmount){
-		if (!PlayerBurning){
+	public void BurnPlayer (int Ticks, int DmgAmount, bool Burning){
+		if (!Burning){
+			StartCoroutine(BurnDamage(Ticks, DmgAmount));
+			PlayerBurning = false;
+			Debug.Log("Burninat Begin");
+		} else if (Burning){
 			StartCoroutine(BurnDamage(Ticks, DmgAmount));
 			PlayerBurning = true;
-			Debug.Log("Burninat Begin");
 		}
 	}
 	
@@ -50,6 +53,10 @@ protected static GameManager _instance = null;
 		for(int i=0; i < Ticks; i++){
 			ReduceHealth(DmgAmount);
 			yield return new WaitForSeconds(0.3f);
+			if(PlayerBurning){
+				Ticks += 1;
+				Debug.Log("More Burninate");
+			}
 			Debug.Log("Burninated");
 		}
     }
