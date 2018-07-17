@@ -26,10 +26,22 @@ protected static GameManager _instance = null;
 	public int PlayerHP;
 	public int DmgMultiplier;
 	private bool PlayerBurning;
+	public GameObject PauseMenu;
 	
 	void Awake () {		
-		DontDestroyOnLoad(this.gameObject);
+		//DontDestroyOnLoad(this.gameObject);
 	}
+	
+	void Start (){
+		PauseMenu = GameObject.FindGameObjectWithTag("Pause_Menu");
+	}
+	
+	void Update () {
+		if (Input.GetKeyDown(KeyCode.P)){
+			PauseGame();
+		}
+	}
+	
 #region Player damage and status functions
 	public void ReduceHealth (int Amount){
 		PlayerHP -= Amount;
@@ -84,6 +96,22 @@ protected static GameManager _instance = null;
 	public void ExitGame(){
 		Application.Quit();
 		Debug.Log("Quit Game");
+	}
+	
+	public void PauseGame(){
+		Debug.Log("Time Frozen");
+		PauseMenu.SetActive (true);
+		Time.timeScale = 0.0f;
+	}
+	
+	public void GoToMain(){
+		SceneManager.LoadScene("_Main_Menu");
+	}
+	
+	public void ResumeGame(){
+		Time.timeScale = 1.0f;
+		Debug.Log("Time Continued");
+		PauseMenu.SetActive (false);
 	}
 	
 	IEnumerator RestartLevel(float delay) {
