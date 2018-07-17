@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//Andrew Bangs Game manager script
+//Andrew Bangs Game manager script, Game manager controls UI, scenes, and player status
 public class GameManager : MonoBehaviour {
 
 protected static GameManager _instance = null;
@@ -30,7 +30,7 @@ protected static GameManager _instance = null;
 	void Awake () {		
 		DontDestroyOnLoad(this.gameObject);
 	}
-	
+#region Player damage and status functions
 	public void ReduceHealth (int Amount){
 		PlayerHP -= Amount;
 		
@@ -74,6 +74,17 @@ protected static GameManager _instance = null;
 		yield return new WaitForSeconds(Delay);
 		DmgMultiplier = 1;
 	}
+#endregion
+	
+#region UI and Scene Management
+	public void StartGame(){
+		SceneManager.LoadScene("Level_1");
+	}
+	
+	public void ExitGame(){
+		Application.Quit();
+		Debug.Log("Quit Game");
+	}
 	
 	IEnumerator RestartLevel(float delay) {
 		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
@@ -81,4 +92,5 @@ protected static GameManager _instance = null;
 		// Reload the active scene:
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+#endregion
 }
