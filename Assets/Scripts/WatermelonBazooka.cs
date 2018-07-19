@@ -6,36 +6,44 @@ using UnityEngine;
 public class WatermelonBazooka : MonoBehaviour {
 
     public GameObject projectile;
-    private Rigidbody rb;
     public Transform muzzlePoint;
 
     [HideInInspector]
     public ForkController forkStuff;
 
     public float projectileSpeed;
-    public float fireTime = 0.33f;
+    public float fireTime = 6f; //this is a constant and should not be changed
+    public float timeToFire; //this will store the value in fireTime so that it can be edited
     public float projectileLifetime = 5.0f;
 
     void Start () {
-        rb = GetComponent<Rigidbody>();
         forkStuff = FindObjectOfType<ForkController>();
         forkStuff.playerSpotted = false;
 	}
 	
-	void Update () {
+	void FixedUpdate () {
         print (forkStuff.playerSpotted);
-		if(forkStuff.playerSpotted)
+
+        if (timeToFire > 0f)
         {
-            print("it's alive");
-            SpawnProjectile();
+            timeToFire -= Time.deltaTime;
         }
-	}
+        else
+        {
+            if (forkStuff.playerSpotted)
+            {
+                print("it's alive");
+                SpawnProjectile();
+                timeToFire = fireTime;
+            }
+        }
+    }
 
     void SpawnProjectile()
     {
         GameObject spawnedProjectile = (GameObject)Instantiate(projectile, muzzlePoint.position, Quaternion.identity);
-        rb.AddForce(muzzlePoint.forward * projectileSpeed);
-        Destroy(projectile, projectileLifetime);
+        spawnedProjectile.GetComponent<Rigidbody>().AddForce(muzzlePoint.up * projectileSpeed);
+        Destroy(spawnedProjectile, projectileLifetime);
     }
 
     private void OnTriggerEnter(Collider other)
