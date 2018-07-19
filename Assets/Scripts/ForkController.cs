@@ -5,27 +5,33 @@ using UnityEngine;
 //Maura Kurp enemy follow script
 public class ForkController : MonoBehaviour {
 
-    private PlayerScript player;
-    private bool playerInRange;
+    private bool playerInRange = false;
+    [HideInInspector]
+    public bool playerSpotted = false;
 
+    public GameObject player;
+    public Transform playerPosition;
     public float playerRange;
     public float enemySpeed;
 
+    public float step;
+
 	void Start () {
-        player = FindObjectOfType<PlayerScript>();
+
 	}
 	
 	void Update () {
-        playerInRange = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), playerRange);
+        Vector3 targetDir = playerPosition.position - transform.position;
+        step = enemySpeed * Time.deltaTime;
 
-        if (playerInRange)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
-        }
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0f);
+        transform.rotation = Quaternion.LookRotation(newDir);
+        
 	}
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerStay(Collider other)
     {
-        Gizmos.DrawSphere(transform.position, playerRange);
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
+        playerSpotted = true;
     }
 }
