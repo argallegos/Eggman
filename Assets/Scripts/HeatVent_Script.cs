@@ -9,14 +9,14 @@ public class HeatVent_Script : MonoBehaviour {
 	
 	void OnTriggerExit (Collider other){
 		if (other.gameObject.CompareTag("Player")){
-			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount);
+			GameManager.Instance.BurnPlayer(1, dmgAmount, false);
 			Debug.Log("Trigger Burnination");
 		}
 	}
 	
 	void OnTriggerEnter (Collider other){
 		if (other.gameObject.CompareTag("Player")){
-			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount);
+			GameManager.Instance.BurnPlayer(tickAmount, dmgAmount, true);
 			Debug.Log("Trigger Burnination");
 		}
 	}
