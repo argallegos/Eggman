@@ -26,6 +26,9 @@ public class PlayerScript : MonoBehaviour {
     public float pInputVertical, pInputHorizontal;
 
     Rigidbody legRB;
+    Rigidbody eggRB;
+
+    //EggModeMove eggMove;
 
     [SerializeField] MouseInput MouseControl;
 
@@ -53,6 +56,7 @@ public class PlayerScript : MonoBehaviour {
         legForm.SetActive(true);
         legRB.detectCollisions = true;
         legRB.isKinematic = false;
+        eggRB = eggForm.GetComponent<Rigidbody>();
 
     }
 	
@@ -60,8 +64,9 @@ public class PlayerScript : MonoBehaviour {
         pInputVertical = playerInput.Vertical * speed;
         pInputHorizontal = playerInput.Horizontal * speed;
         direction.Set(playerInput.Vertical * speed, playerInput.Horizontal * speed);
-        if (!eggMode) //legRB.AddForce(pInputHorizontal, 0f, pInputVertical * moveForce);
-                        MoveController.Move(direction);
+
+        if (!eggMode) MoveController.Move(direction);
+
         else
         {
             transform.position = new Vector3 (eggForm.transform.position.x, transform.position.y, eggForm.transform.position.z);
@@ -71,8 +76,7 @@ public class PlayerScript : MonoBehaviour {
 
         mouseRotate = (Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
         transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
-        //print(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
-
+        
         eggPos = legForm.transform.position;
         if (playerInput.shift)
         {
@@ -82,15 +86,19 @@ public class PlayerScript : MonoBehaviour {
         if (playerInput.jump && OnGround())
         {
             Jump();
-        }
-            
+        }    
 
 	}
 
     void Jump()
     {
         legRB.AddForce(Vector3.up * jumpForce);
-    } 
+    }
+
+    private bool OnGround()
+    {
+        return Physics.Raycast(transform.position + new Vector3(0, .1f, 0), Vector3.down, .4f);
+    }
 
     void EggModeTime()
     {
@@ -108,16 +116,12 @@ public class PlayerScript : MonoBehaviour {
             legForm.SetActive(false);
             legRB.detectCollisions = false;
             legRB.isKinematic = true;
-            
+
+            eggRB.velocity = Vector3.zero;
             eggForm.transform.position = new Vector3 (transform.position.x, transform.position.y +1f, transform.position.z);
-            eggForm.transform.rotation = Quaternion.identity;
+            eggForm.transform.rotation = transform.rotation;
 
         }
-    }
-
-    private bool OnGround()
-    {
-        return Physics.Raycast(transform.position + new Vector3(0, .1f, 0), Vector3.down, .4f);
     }
 
 }

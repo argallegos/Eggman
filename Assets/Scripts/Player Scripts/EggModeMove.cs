@@ -9,17 +9,20 @@ public class EggModeMove : MonoBehaviour {
     InputController playerInput;
     PlayerScript pScript;
     public float force;
+    Vector3 facingDirection;
 
     void OnEnable() {
         myRB = GetComponent<Rigidbody>();
         playerInput = PlayerManager.Instance.InputController;
         pScript = player.GetComponent<PlayerScript>();
+        facingDirection = transform.forward;
     }
 
     void Update () {
 
-        myRB.AddForce(pScript.pInputHorizontal, 0f, pScript.pInputVertical * force);
-        transform.Rotate(pScript.mouseRotate);
+        Vector3 eggForce = new Vector3(pScript.pInputHorizontal, 0f, pScript.pInputVertical * force);
+        myRB.AddForce(eggForce + facingDirection);
+        print(facingDirection);
 
     }
 
