@@ -5,44 +5,41 @@ using UnityEngine;
 
 public class MagnetScript : MonoBehaviour {
 
-    public PlayerScript player;
+    public GameObject player;
     public float speed; //magnet speed
     public float magneticPull; //speed that the player is pulled toward magnet
     public float playerRange; //distance until magnet chases player
     public float magnetEffectRange; //the range of the magnet to begin affecting player movement
 
+    private float step;
+
     private bool playerInRange; //is the player in range?
     private bool magnetEffect; //is the player in the magnet effect range?
+    private bool playerSpotted;
 
 	void Start () {
-        player = FindObjectOfType<PlayerScript>();
-	}
-	
-	void Update () {
-        DetectPlayer();
-
-        EnemyMoveToPlayer();
 	}
 
-    void DetectPlayer()
+    void Update()
     {
-        //Detect if the player is within the specified range
-        playerInRange = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), playerRange);
-        magnetEffect = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), magnetEffectRange);
+        Vector3 targetDir = player.transform.position - transform.position;
+        step = speed * Time.deltaTime;
+
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0f);
+        transform.rotation = Quaternion.LookRotation(newDir);
+
+
     }
 
-    void EnemyMoveToPlayer ()
+    void OnTriggerStay(Collider other)
     {
-        //If the player is in range, the magnet will move toward them
-        if (playerInRange)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed* Time.deltaTime);
-        }
+        StartCoroutine("PullPlayer");
+        playerSpotted = true;
+    }
 
-        //Additionally, if the magnet is close enough, it will pull in the player just a little bit
-        if (magnetEffect)
-        {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, magneticPull * Time.deltaTime);
-        }
+    IEnumerator PullPlayer()
+    {
+        player.transform.position = Vector3.MoveTowards(player.transform.position, transform.position, -(magneticPull) * Time.deltaTime);
+        yield return new WaitForSeconds(5f);
     }
 }
