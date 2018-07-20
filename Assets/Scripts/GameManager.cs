@@ -7,40 +7,57 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 protected static GameManager _instance = null;
-
-    /**
-     * Return the instance of this singleton in the scene.
-     */
-    public static GameManager Instance {
-        get {
-            if (_instance == null) {
-                _instance = FindObjectOfType<GameManager>();
-                if (_instance == null) {
-                    Debug.LogError("An instance of type GameManager is needed in the scene, but there is none!");
-                }
-            }
-            return _instance;
-        }
-    }
 	
+	public static GameManager Instance = null;
 	public int PlayerHP;
 	public int DmgMultiplier;
 	private bool PlayerBurning;
 	public GameObject PauseMenu;
+	public GameObject MainMenu;
+	public int SceneNumber;
 	
 	void Awake () {		
-		//DontDestroyOnLoad(this.gameObject);
-	}
-	
-	void Start (){
-		PauseMenu = GameObject.FindGameObjectWithTag("Pause_Menu");
+		DontDestroyOnLoad(this.gameObject);
+		if (Instance == null){
+			Instance = this;
+		} else if (Instance != this){
+			Destroy(this.gameObject);
+		}
+		SceneNumber = SceneManager.GetActiveScene().buildIndex;
 	}
 	
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.P)){
+		if (Input.GetKeyDown(KeyCode.P) && SceneNumber > 0){
 			PauseGame();
 		}
 	}
+
+#region Scene Management	
+	void OnEnable(){
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+	
+	void OnDisable(){
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+	
+	void OnSceneLoaded (Scene scene, LoadSceneMode mode){
+		Debug.Log("Scene =" + SceneNumber);
+		SceneNumber = SceneManager.GetActiveScene().buildIndex;
+		if (SceneNumber == 0){
+			MainMenu.SetActive (true);
+		}else if (SceneNumber != 0){
+			MainMenu.SetActive (false);
+		}
+	}
+	
+	IEnumerator RestartLevel(float delay) {
+		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
+		yield return new WaitForSeconds(delay);
+		// Reload the active scene:
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+#endregion
 	
 #region Player damage and status functions
 	public void ReduceHealth (int Amount){
@@ -88,7 +105,7 @@ protected static GameManager _instance = null;
 	}
 #endregion
 	
-#region UI and Scene Management
+#region UI Management
 	public void StartGame(){
 		SceneManager.LoadScene("Level_1");
 	}
@@ -105,7 +122,9 @@ protected static GameManager _instance = null;
 	}
 	
 	public void GoToMain(){
-		SceneManager.LoadScene("_Main_Menu");
+		SceneManager.LoadScene("_MainMenu");
+		SceneNumber = 0;
+		ResumeGame();
 	}
 	
 	public void ResumeGame(){
@@ -113,12 +132,5 @@ protected static GameManager _instance = null;
 		Debug.Log("Time Continued");
 		PauseMenu.SetActive (false);
 	}
-	
-	IEnumerator RestartLevel(float delay) {
-		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
-		yield return new WaitForSeconds(delay);
-		// Reload the active scene:
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 #endregion
 }
