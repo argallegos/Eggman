@@ -17,9 +17,10 @@ public class PlayerScript : MonoBehaviour {
     public float speed, moveForce, dmgMult, jumpForce;
     public GameObject eggForm, legForm;
     public Vector2 direction;
+    public Vector3 aimOffset;
 
     [HideInInspector]
-    public Vector3 eggPos, mouseRotate;
+    public Vector3 eggPos, facingDirection, aimPoint, crosshairPos;
     [HideInInspector]
     public bool eggMode, inAir;
     [HideInInspector]
@@ -28,11 +29,16 @@ public class PlayerScript : MonoBehaviour {
     Rigidbody legRB;
     Rigidbody eggRB;
 
-    //EggModeMove eggMove;
+    public Camera mainCam;
+
+    //LayerMask playerMask = 9;
+
 
     [SerializeField] MouseInput MouseControl;
 
     InputController playerInput;
+    PlayerShooter playerShooter;
+    ThirdPersonCamera camScript;
     Vector2 mouseInput;
 
     private MoveController m_MoveController;
@@ -47,8 +53,21 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+    private Crosshair m_Crosshair;
+    private Crosshair Crosshair
+    {
+        get
+        {
+            if (m_Crosshair == null)
+                m_Crosshair = GetComponentInChildren<Crosshair>();
+            return m_Crosshair;
+        }
+    }
+
     void Awake () {
         playerInput = PlayerManager.Instance.InputController;
+        playerShooter = GetComponent<PlayerShooter>();
+        camScript = mainCam.GetComponent<ThirdPersonCamera>();
         PlayerManager.Instance.LocalPlayer = this;
         legRB = GetComponent<Rigidbody>();
         eggMode = false;
@@ -61,8 +80,10 @@ public class PlayerScript : MonoBehaviour {
     }
 	
 	void Update () {
-        pInputVertical = playerInput.Vertical * speed;
-        pInputHorizontal = playerInput.Horizontal * speed;
+
+        crosshairPos = Crosshair.crosshairPos;
+        pInputVertical = playerInput.Vertical;
+        pInputHorizontal = playerInput.Horizontal;
         direction.Set(playerInput.Vertical * speed, playerInput.Horizontal * speed);
 
         if (!eggMode) MoveController.Move(direction);
@@ -72,23 +93,50 @@ public class PlayerScript : MonoBehaviour {
             transform.position = new Vector3 (eggForm.transform.position.x, transform.position.y, eggForm.transform.position.z);
         }
 
-        mouseInput.x = Mathf.Lerp(mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
+        if (playerInput.shift) EggModeTime();
 
-        mouseRotate = (Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
-        transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
+        if (playerInput.jump && OnGround()) Jump();
         
-        eggPos = legForm.transform.position;
-        if (playerInput.shift)
-        {
-            EggModeTime();
+        if (playerInput.shoot && !eggMode) playerShooter.Fire();
 
-        }
-        if (playerInput.jump && OnGround())
+        int layerMask = 1 << 9;
+        layerMask = ~layerMask;
+
+        RaycastHit hit;
+        Ray ray = mainCam.ScreenPointToRay(crosshairPos);
+
+        if (Physics.Raycast(ray, out hit))
         {
-            Jump();
-        }    
+            print("I'm looking at " + hit.transform.name);
+            aimPoint = hit.point + aimOffset;
+            Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+        }
+        else
+        {
+            print("I'm looking at nothing!");
+            aimPoint = Vector3.zero;
+            Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+        }
+
+
+
+
+        eggPos = legForm.transform.position;
+
+        Look();
 
 	}
+
+    void Look()
+    {
+        mouseInput.x = Mathf.Lerp(mouseInput.x, playerInput.MouseInput.x, 1f / MouseControl.Damping.x);
+        mouseInput.y = Mathf.Lerp(mouseInput.y, playerInput.MouseInput.y, 1f / MouseControl.Damping.y);
+
+        transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
+
+        Crosshair.LookHeight(mouseInput.y * MouseControl.Sensitivity.y);
+        //camScript.SetRotation(mouseInput.y * MouseControl.Sensitivity.y);
+    }
 
     void Jump()
     {
@@ -116,10 +164,12 @@ public class PlayerScript : MonoBehaviour {
             legForm.SetActive(false);
             legRB.detectCollisions = false;
             legRB.isKinematic = true;
+            facingDirection = mainCam.transform.forward;
 
             eggRB.velocity = Vector3.zero;
+            eggRB.angularVelocity = Vector3.zero;
             eggForm.transform.position = new Vector3 (transform.position.x, transform.position.y +1f, transform.position.z);
-            eggForm.transform.rotation = transform.rotation;
+            eggForm.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         }
     }

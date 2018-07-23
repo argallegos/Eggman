@@ -5,25 +5,22 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     [SerializeField] Vector3 cameraOffset;
     [SerializeField] float damping;
+    public GameObject camTarget;
+    public GameObject player;
     Transform cameraLookTarget;
     PlayerScript localPlayer;
 
-	void Awake () {
-        PlayerManager.Instance.OnLocalPlayerJoined += HandleOnLocalPlayerJoined; ;
-		
-	}
-
-    void HandleOnLocalPlayerJoined (PlayerScript player)
+    private void Start()
     {
-        localPlayer = player;
-        cameraLookTarget = localPlayer.transform.Find("cameraLookTarget");
-
-        if (cameraLookTarget == null)
-            cameraLookTarget = localPlayer.transform;
+        cameraLookTarget = camTarget.transform;
+        localPlayer = player.GetComponent<PlayerScript>();
     }
-	
-	void Update () {
-        Vector3 targetPosition = cameraLookTarget.position + localPlayer.transform.forward * cameraOffset.z + localPlayer.transform.up * cameraOffset.y + localPlayer.transform.right * cameraOffset.x;
+
+    void Update () {
+        Vector3 targetPosition = cameraLookTarget.position 
+            + localPlayer.transform.forward * cameraOffset.z 
+            + localPlayer.transform.up * cameraOffset.y
+            + localPlayer.transform.right * cameraOffset.x;
 
         Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
 
@@ -32,4 +29,8 @@ public class ThirdPersonCamera : MonoBehaviour {
         
 		
 	}
+    public void SetRotation (float amount)
+    {
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x * amount, transform.eulerAngles.y, transform.eulerAngles.z);
+    }
 }

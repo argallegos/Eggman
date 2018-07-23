@@ -5,15 +5,18 @@ using UnityEngine;
 public class PlayerShooter : MonoBehaviour {
 
     [SerializeField] float rateOfFire;
+    [SerializeField] PlayerBullet bullet;
 
-    public Transform muzzle;
+    public Transform muzzleLeft;
+    public Transform muzzleRight;
 
     float fireDelay;
     bool canFire;
 
     private void Awake()
     {
-        muzzle = transform.Find("Muzzle");
+       // muzzleLeft = transform.Find("muzzleLeft");
+       // muzzleRight = transform.Find("muzzleRight");
     }
 
     public virtual void Fire()
@@ -22,6 +25,11 @@ public class PlayerShooter : MonoBehaviour {
 
         if (Time.time < fireDelay)
             return;
+
+        fireDelay = Time.time + rateOfFire;
+
+        Instantiate(bullet, muzzleLeft.position, muzzleLeft.rotation);
+        Instantiate(bullet, muzzleRight.position, muzzleRight.rotation);
 
         canFire = true;
 

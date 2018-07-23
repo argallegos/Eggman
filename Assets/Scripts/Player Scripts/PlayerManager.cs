@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//Alex Gallegos Player Manager
+//Alex Gallegos Player Manager - Almost completely written by Stevie ROF's youtube series "Third Person Shooter Tutorial"
 public class PlayerManager {
   
     public event System.Action<PlayerScript> OnLocalPlayerJoined;

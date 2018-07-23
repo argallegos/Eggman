@@ -9,34 +9,16 @@ public class EggModeMove : MonoBehaviour {
     InputController playerInput;
     PlayerScript pScript;
     public float force;
-    Vector3 facingDirection;
 
     void OnEnable() {
         myRB = GetComponent<Rigidbody>();
         playerInput = PlayerManager.Instance.InputController;
         pScript = player.GetComponent<PlayerScript>();
-        facingDirection = transform.forward;
     }
 
     void Update () {
-
-        Vector3 eggForce = new Vector3(pScript.pInputHorizontal, 0f, pScript.pInputVertical * force);
-        myRB.AddForce(eggForce + facingDirection);
-        print(facingDirection);
-
+        Vector3 facingDirection = new Vector3(pScript.facingDirection.x, 0f, pScript.facingDirection.z);
+        myRB.AddForce(facingDirection * force * playerInput.Vertical);
     }
 
-    void ModeTest()
-    {
-        print("IM CHECKING IF IM AN EGG");
-        if (pScript.eggMode == true)
-        {
-            print("I'm an egg!");
-        }
-        else
-        {
-            print("I've got legs!");
-        }
-
-    }
 }
