@@ -8,22 +8,13 @@ public class Crosshair : MonoBehaviour {
     [SerializeField] int size;
     [SerializeField] float maxAngle;
     [SerializeField] float minAngle;
+    [HideInInspector]
+    public Vector3 crosshairPos;
 
-    public Vector3 crosshairPos, testPos;
-
-    public float x, y, z;
-
+    public PlayerScript player;
 
     float lookHeight;
-    public float crosshairY;
 
-    void Update()
-    {
-        x = transform.position.x;
-        y = transform.position.y;
-        z = transform.position.z;
-        testPos = transform.position;
-    }
 
 
     public void LookHeight (float value)
@@ -36,12 +27,13 @@ public class Crosshair : MonoBehaviour {
 
     public void OnGUI()
     {
+        float offset = size / 2;
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        screenPosition.y = Screen.height - screenPosition.y;
-        GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y - lookHeight, size, size), image);
-        crosshairY = screenPosition.y;
-        crosshairPos.Set(screenPosition.x, screenPosition.y-lookHeight*-1f, 0f);
-
+        screenPosition.y = Screen.height/2;
+        if (!player.eggMode){
+            GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y - lookHeight, size, size), image);
+            crosshairPos.Set(screenPosition.x + offset, (screenPosition.y - lookHeight * -1f - offset), 0f);
+        }
     }
 
 

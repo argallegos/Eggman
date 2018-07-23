@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4504400989539328}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: legman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4021528263677174}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: muzzleRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: 54250209369655802}
   - component: {fileID: 136009678183131680}
   - component: {fileID: 114404880487493864}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: eggman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 114608415638472338}
   - component: {fileID: 54082466050123148}
   - component: {fileID: 136748101724106242}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 33002931683146074}
   - component: {fileID: 23775212263767968}
   - component: {fileID: 114529286524580840}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EggGun_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4705914196615712}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 4363621434601130}
   - component: {fileID: 33148662027679238}
   - component: {fileID: 23115246655519852}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Lleg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4254328124712944}
   - component: {fileID: 33774946547925948}
   - component: {fileID: 23768267719685740}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 124886943153580522}
   - component: {fileID: 81081430638456616}
   - component: {fileID: 114604207584826248}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4052057625699620}
   - component: {fileID: 33438396770950658}
   - component: {fileID: 23945136704649096}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Rleg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 4383199367283984}
   - component: {fileID: 33811453053477498}
   - component: {fileID: 23476832471951358}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4098587980148616}
   - component: {fileID: 114122722855665738}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478551629012324}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: muzzleLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 33371494236487518}
   - component: {fileID: 23739487405595242}
   - component: {fileID: 114106873153174342}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EggGun_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,8 +256,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4224799742474042}
-  - component: {fileID: 114392437966969840}
-  m_Layer: 0
+  - component: {fileID: 114850514288257138}
+  m_Layer: 2
   m_Name: cameraLookTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,12 +296,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1806785749226452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.364, y: 1.346, z: 5.34}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.364, y: 0.34599996, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4539629365704560}
-  m_RootOrder: 2
+  m_Father: {fileID: 4224799742474042}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4224799742474042
 Transform:
@@ -312,7 +312,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4098587980148616}
   m_Father: {fileID: 4539629365704560}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -412,7 +413,6 @@ Transform:
   m_Children:
   - {fileID: 4504400989539328}
   - {fileID: 4224799742474042}
-  - {fileID: 4098587980148616}
   m_Father: {fileID: 4705914196615712}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -598,7 +598,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2132c0e0b5673844bb7a99df634dc77f, type: 2}
+  - {fileID: 2100000, guid: 9149e918b726a104db56e08350fa5d00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -668,7 +668,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 2132c0e0b5673844bb7a99df634dc77f, type: 2}
+  - {fileID: 2100000, guid: 9149e918b726a104db56e08350fa5d00, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -827,14 +827,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 2800000, guid: 9565f3b45ead6bf4990e558f3aa5025a, type: 3}
   size: 32
-  maxAngle: 95
+  maxAngle: 180
   minAngle: -40
   crosshairPos: {x: 0, y: 0, z: 0}
-  testPos: {x: 0, y: 0, z: 0}
-  x: 0
-  y: 0
-  z: 0
-  crosshairY: 0
+  player: {fileID: 114329219181631816}
 --- !u!114 &114329219181631816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -853,6 +849,7 @@ MonoBehaviour:
   eggForm: {fileID: 1185290129206820}
   legForm: {fileID: 1015261463984520}
   direction: {x: 0, y: 0}
+  aimOffset: {x: 0, y: 0, z: 0}
   eggPos: {x: 0, y: 0, z: 0}
   facingDirection: {x: 0, y: 0, z: 0}
   aimPoint: {x: 0, y: 0, z: 0}
@@ -862,23 +859,10 @@ MonoBehaviour:
   pInputVertical: 0
   pInputHorizontal: 0
   mainCam: {fileID: 20954198132667682}
+  cameraPivot: {fileID: 114850514288257138}
   MouseControl:
     Damping: {x: 2, y: 2}
     Sensitivity: {x: 5, y: 10}
---- !u!114 &114392437966969840
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1947035917977078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f556d5e659ddd12438ca07a17c404e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  egg: {fileID: 1185290129206820}
-  offset: {x: 0, y: 1, z: 5}
-  eggPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114404880487493864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,10 +910,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683be6bee3d10224587fa6ffd19dacbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: {x: 2, y: 1, z: -7.5}
+  cameraOffset: {x: 2, y: 0.5, z: -9}
+  eggOffset: {x: 0, y: -0.3, z: -7}
   damping: 5
   camTarget: {fileID: 1947035917977078}
   player: {fileID: 1231393912025042}
+  gun: {fileID: 1288915676535854}
+  offsetRef: {x: 0, y: 0, z: 0}
 --- !u!114 &114608415638472338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -945,6 +932,17 @@ MonoBehaviour:
   bullet: {fileID: 114067419683351354, guid: dced6b6363df1194285dab16f61abbef, type: 2}
   muzzleLeft: {fileID: 4478551629012324}
   muzzleRight: {fileID: 4021528263677174}
+--- !u!114 &114850514288257138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947035917977078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98682cb677b988649add2045ed02f14a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &124886943153580522
 Behaviour:
   m_ObjectHideFlags: 1

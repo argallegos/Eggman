@@ -31,6 +31,8 @@ public class PlayerScript : MonoBehaviour {
 
     public Camera mainCam;
 
+    public CameraPivot cameraPivot;
+
     //LayerMask playerMask = 9;
 
 
@@ -90,7 +92,7 @@ public class PlayerScript : MonoBehaviour {
 
         else
         {
-            transform.position = new Vector3 (eggForm.transform.position.x, transform.position.y, eggForm.transform.position.z);
+            transform.position = new Vector3 (eggForm.transform.position.x, eggForm.transform.position.y, eggForm.transform.position.z);
         }
 
         if (playerInput.shift) EggModeTime();
@@ -107,13 +109,13 @@ public class PlayerScript : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit))
         {
-            print("I'm looking at " + hit.transform.name);
+            //print("I'm looking at " + hit.transform.name);
             aimPoint = hit.point + aimOffset;
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
         }
         else
         {
-            print("I'm looking at nothing!");
+            //print("I'm looking at nothing!");
             aimPoint = Vector3.zero;
             Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
         }
@@ -135,7 +137,7 @@ public class PlayerScript : MonoBehaviour {
         transform.Rotate(Vector3.up * mouseInput.x * MouseControl.Sensitivity.x);
 
         Crosshair.LookHeight(mouseInput.y * MouseControl.Sensitivity.y);
-        //camScript.SetRotation(mouseInput.y * MouseControl.Sensitivity.y);
+        cameraPivot.SetRotation(mouseInput.y * MouseControl.Sensitivity.y);
     }
 
     void Jump()
@@ -150,14 +152,16 @@ public class PlayerScript : MonoBehaviour {
 
     void EggModeTime()
     {
+        //ACTIVATE LEG MODE
         if (eggMode == true) {
             eggMode = false;
             eggForm.SetActive(false);
             legForm.SetActive(true);
             legRB.detectCollisions = true;
             legRB.isKinematic = false;
+            camScript.cameraOffset = camScript.offsetRef;
         }
-
+        // ACTIVATE EGG MODE
         else {
             eggMode = true;
             eggForm.SetActive(true);
@@ -170,6 +174,8 @@ public class PlayerScript : MonoBehaviour {
             eggRB.angularVelocity = Vector3.zero;
             eggForm.transform.position = new Vector3 (transform.position.x, transform.position.y +1f, transform.position.z);
             eggForm.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+            camScript.cameraOffset = camScript.eggOffset;
 
         }
     }

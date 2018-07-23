@@ -3,34 +3,41 @@ using System.Collections;
 //Alex Gallegos third person camera script
 public class ThirdPersonCamera : MonoBehaviour {
 
-    [SerializeField] Vector3 cameraOffset;
+    [SerializeField]public Vector3 cameraOffset;
+    [SerializeField]public Vector3 eggOffset;
     [SerializeField] float damping;
-    public GameObject camTarget;
-    public GameObject player;
-    Transform cameraLookTarget;
+    public GameObject camTarget, player, gun;
+    Transform cameraLookTarget, gunTF;
     PlayerScript localPlayer;
+
+    public Vector3 offsetRef;
 
     private void Start()
     {
         cameraLookTarget = camTarget.transform;
         localPlayer = player.GetComponent<PlayerScript>();
+        offsetRef = cameraOffset;
     }
 
-    void Update () {
-        Vector3 targetPosition = cameraLookTarget.position 
-            + localPlayer.transform.forward * cameraOffset.z 
+    void LateUpdate()
+    { 
+        Vector3 targetPosition = cameraLookTarget.position
+            + localPlayer.transform.forward * cameraOffset.z
             + localPlayer.transform.up * cameraOffset.y
-            + localPlayer.transform.right * cameraOffset.x;
+            + localPlayer.transform.right * cameraOffset.x; 
+            /*
+                Vector3 targetPosition = cameraLookTarget.position
+            + localPlayer.transform.forward * eggOffset.z
+            + localPlayer.transform.up * eggOffset.y
+            + localPlayer.transform.right * eggOffset.x;
+            */
 
-        Quaternion targetRotation = Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
+        //Quaternion targetRotation = cameraLookTarget.rotation;//Quaternion.LookRotation(cameraLookTarget.position - targetPosition, Vector3.up);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, damping * Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, damping * Time.deltaTime);
-        
-		
-	}
-    public void SetRotation (float amount)
-    {
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x * amount, transform.eulerAngles.y, transform.eulerAngles.z);
+        transform.rotation = Quaternion.Lerp(transform.rotation, cameraLookTarget.rotation, damping * Time.deltaTime);
+        //transform.rotation = gun.transform.rotation;
+
+        // transform.rotation = Quaternion.Lerp(transform.rotation, gun.transform.rotation, damping * Time.deltaTime);
     }
 }
