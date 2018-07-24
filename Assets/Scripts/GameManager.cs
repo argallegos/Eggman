@@ -15,6 +15,8 @@ protected static GameManager _instance = null;
 	public GameObject PauseMenu;
 	public GameObject MainMenu;
 	public int SceneNumber;
+    public Text healthText;
+    public GameObject player;
 	
 	void Awake () {		
 		DontDestroyOnLoad(this.gameObject);
@@ -24,13 +26,18 @@ protected static GameManager _instance = null;
 			Destroy(this.gameObject);
 		}
 		SceneNumber = SceneManager.GetActiveScene().buildIndex;
-	}
+        player = GameObject.Find("Player");
+        //Text healthText = player.healthText; 
+        Text healthText = (GameObject.FindWithTag("health")).GetComponent<Text>();
+
+    }
 	
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.P) && SceneNumber > 0){
 			PauseGame();
+
 		}
-	}
+    }
 
 #region Scene Management	
 	void OnEnable(){
@@ -51,13 +58,16 @@ protected static GameManager _instance = null;
 			MainMenu.SetActive (false);
 			Cursor.lockState = CursorLockMode.Locked;
 			InitializeStats();
-		}
+        }
 	}
-	
+
+
+
 	void InitializeStats(){
 		PlayerHP = 100;
 		PlayerBurning = false;
-	}
+        SetHealth();
+    }
 	
 	IEnumerator RestartLevel(float delay) {
 		// wait for the delay amount of seconds, by yield-returning a WaitForSeconds object:
@@ -70,6 +80,7 @@ protected static GameManager _instance = null;
 #region Player damage and status functions
 	public void ReduceHealth (int Amount){
 		PlayerHP -= Amount;
+        SetHealth();
 		
 		if (PlayerHP <= 0){
 			PlayerHP = 0;
@@ -81,7 +92,7 @@ protected static GameManager _instance = null;
 		if (!Burning){
 			StartCoroutine(BurnDamage(Ticks, DmgAmount));
 			PlayerBurning = false;
-			Debug.Log("Burninat Begin");
+			Debug.Log("Burninate Begin");
 		} else if (Burning){
 			StartCoroutine(BurnDamage(Ticks, DmgAmount));
 			PlayerBurning = true;
@@ -143,5 +154,9 @@ protected static GameManager _instance = null;
 		PauseMenu.SetActive (false);
 		Cursor.lockState = CursorLockMode.Locked;
 	}
-#endregion
+    #endregion
+    public void SetHealth()
+    {
+        healthText.text = "Health: " + PlayerHP;
+    }
 }

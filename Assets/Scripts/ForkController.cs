@@ -17,7 +17,7 @@ public class ForkController : MonoBehaviour {
     public float step;
 
 	void Start () {
-
+        playerPosition = player.transform;
 	}
 	
 	void Update () {

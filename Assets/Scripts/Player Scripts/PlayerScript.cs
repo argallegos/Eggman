@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //Alex Gallegos main player script
 [RequireComponent(typeof(MoveController))]
 

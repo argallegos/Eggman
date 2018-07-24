@@ -22,7 +22,7 @@ public class WatermelonBazooka : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-        print (forkStuff.playerSpotted);
+ //       print (forkStuff.playerSpotted);
 
         if (timeToFire > 0f)
         {
