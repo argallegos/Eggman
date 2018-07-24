@@ -8,15 +8,12 @@ public class GunPointTowards : MonoBehaviour {
 
     public GameObject player;
     PlayerScript pScript;
-
-	// Use this for initialization
+    
 	void Start () {
         pScript = player.GetComponent<PlayerScript>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
         transform.LookAt(pScript.aimPoint);
-
     }
 }

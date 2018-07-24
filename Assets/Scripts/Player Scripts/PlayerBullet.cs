@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Alex Gallegos player bullet script
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerBullet : MonoBehaviour {
 

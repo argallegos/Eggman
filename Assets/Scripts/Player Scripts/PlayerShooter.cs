@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Alex Gallegos Player Shooter Script
 public class PlayerShooter : MonoBehaviour {
 
     [SerializeField] float rateOfFire;
@@ -12,12 +12,6 @@ public class PlayerShooter : MonoBehaviour {
 
     float fireDelay;
     bool canFire;
-
-    private void Awake()
-    {
-       // muzzleLeft = transform.Find("muzzleLeft");
-       // muzzleRight = transform.Find("muzzleRight");
-    }
 
     public virtual void Fire()
     {

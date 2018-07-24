@@ -6,13 +6,13 @@ public class EggModeMove : MonoBehaviour {
 
     Rigidbody myRB;
     public GameObject player;
-    InputController playerInput;
+    public InputController playerInput;
     PlayerScript pScript;
     public float force;
 
     void OnEnable() {
         myRB = GetComponent<Rigidbody>();
-        playerInput = PlayerManager.Instance.InputController;
+        playerInput = player.GetComponent<InputController>();
         pScript = player.GetComponent<PlayerScript>();
     }
 

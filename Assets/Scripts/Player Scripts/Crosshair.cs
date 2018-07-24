@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Alex Gallegos crosshair script
+
 public class Crosshair : MonoBehaviour {
 
     [SerializeField] Texture2D image;
     [SerializeField] int size;
     [SerializeField] float maxAngle;
     [SerializeField] float minAngle;
+
     [HideInInspector]
     public Vector3 crosshairPos;
 
     public PlayerScript player;
 
     float lookHeight;
-
-
 
     public void LookHeight (float value)
     {

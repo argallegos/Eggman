@@ -46,9 +46,17 @@ protected static GameManager _instance = null;
 		SceneNumber = SceneManager.GetActiveScene().buildIndex;
 		if (SceneNumber == 0){
 			MainMenu.SetActive (true);
+			Cursor.lockState = CursorLockMode.None;
 		}else if (SceneNumber != 0){
 			MainMenu.SetActive (false);
+			Cursor.lockState = CursorLockMode.Locked;
+			InitializeStats();
 		}
+	}
+	
+	void InitializeStats(){
+		PlayerHP = 100;
+		PlayerBurning = false;
 	}
 	
 	IEnumerator RestartLevel(float delay) {
@@ -119,6 +127,7 @@ protected static GameManager _instance = null;
 		Debug.Log("Time Frozen");
 		PauseMenu.SetActive (true);
 		Time.timeScale = 0.0f;
+		Cursor.lockState = CursorLockMode.None;
 	}
 	
 	public void GoToMain(){
@@ -131,6 +140,7 @@ protected static GameManager _instance = null;
 		Time.timeScale = 1.0f;
 		Debug.Log("Time Continued");
 		PauseMenu.SetActive (false);
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 #endregion
 }
