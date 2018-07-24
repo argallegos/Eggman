@@ -47,10 +47,11 @@ public class PlayerManager {
         set
         {
             m_LocalPlayer = value;
-            if(OnLocalPlayerJoined != null)
-                    OnLocalPlayerJoined(m_LocalPlayer);
+            if (OnLocalPlayerJoined != null)
+                OnLocalPlayerJoined(m_LocalPlayer);
         }
     }
-	
+
+
 
 }

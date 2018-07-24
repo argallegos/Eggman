@@ -46,8 +46,13 @@ public class WatermelonBazooka : MonoBehaviour {
         Destroy(spawnedProjectile, projectileLifetime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        
+        Debug.Log("collision works");
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.ReduceHealth(50);
+            Debug.Log("reduced health?");
+        }
     }
 }
