@@ -10,9 +10,5 @@ public class SingletonLoader : MonoBehaviour {
 		if (GameManager.Instance == null){
 			Instantiate(gameManager);
 		}
-		
-		if (PlayerManager.Instance == null){
-			Instantiate(gameManager);
-		}
 	}
 }

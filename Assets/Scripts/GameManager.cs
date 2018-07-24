@@ -72,6 +72,7 @@ protected static GameManager _instance = null;
 		PlayerHP -= Amount;
 		
 		if (PlayerHP <= 0){
+			PlayerHP = 0;
 			StartCoroutine(RestartLevel(1));
 		}
 	}
