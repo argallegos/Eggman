@@ -33,9 +33,6 @@ public class PlayerScript : MonoBehaviour {
 
     public CameraPivot cameraPivot;
 
-    //LayerMask playerMask = 9;
-
-
     [SerializeField] MouseInput MouseControl;
 
     InputController playerInput;
@@ -66,11 +63,12 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+
+
     void Awake () {
-        playerInput = PlayerManager.Instance.InputController;
+        playerInput = GetComponent<InputController>();
         playerShooter = GetComponent<PlayerShooter>();
         camScript = mainCam.GetComponent<ThirdPersonCamera>();
-        PlayerManager.Instance.LocalPlayer = this;
         legRB = GetComponent<Rigidbody>();
         eggMode = false;
         eggForm.SetActive(false);

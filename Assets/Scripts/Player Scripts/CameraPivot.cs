@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Alex Gallegos cam pivot
 
 public class CameraPivot : MonoBehaviour {
 

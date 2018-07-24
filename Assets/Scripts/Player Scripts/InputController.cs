@@ -4,12 +4,12 @@ using UnityEngine;
 //Alex Gallegos player input script
 public class InputController : MonoBehaviour {
 
-    public float Vertical;
-    public float Horizontal;
+    [HideInInspector]
+    public float Vertical, Horizontal;
+    [HideInInspector]
     public Vector2 MouseInput;
-    public bool shift;
-    public bool jump;
-    public bool shoot;
+    [HideInInspector]
+    public bool shift, jump, shoot;
 
     void Update()
     {
@@ -19,8 +19,6 @@ public class InputController : MonoBehaviour {
         shoot = Input.GetButton("Fire1");
         shift = Input.GetKeyUp(KeyCode.LeftShift);
         jump = Input.GetKeyDown(KeyCode.Space);
-
-       
 
     }
 
