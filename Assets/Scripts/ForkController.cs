@@ -13,6 +13,7 @@ public class ForkController : MonoBehaviour {
     public Transform playerPosition;
     public float playerRange;
     public float enemySpeed;
+    public int forkHealth = 10;
 
     public float step;
 
@@ -33,5 +34,20 @@ public class ForkController : MonoBehaviour {
     {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, enemySpeed * Time.deltaTime);
         playerSpotted = true;
+    }
+
+    //this code isn't working
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            forkHealth -= 5;
+            print("this works");
+
+            if (forkHealth <= 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

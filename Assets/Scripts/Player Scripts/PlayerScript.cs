@@ -77,6 +77,10 @@ public class PlayerScript : MonoBehaviour {
         legRB.isKinematic = false;
         eggRB = eggForm.GetComponent<Rigidbody>();
 
+        eggRB.velocity = Vector3.zero;
+        eggRB.angularVelocity = Vector3.zero;
+        legRB.velocity = Vector3.zero;
+        legRB.angularVelocity = Vector3.zero;
     }
 	
 	void Update () {
